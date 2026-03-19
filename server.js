@@ -10,10 +10,14 @@ const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: { origin: CORS_ORIGIN, methods: ["GET", "POST"] },
+  cors: { 
+    origin: CORS_ORIGIN, 
+    methods: ["GET", "POST"],
+    credentials: true
+  },
 });
 
-app.use(cors());
+app.use(cors({ origin: CORS_ORIGIN, credentials: true }));
 app.get("/", (_, res) => res.json({ status: "Server running" }));
 
 const manager = new RoomManager(io);
